@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: |
+          pip install pytest
+          pip install pylint
+
+      - name: Run Tests
+        run: pytest
+
+      - name: Run Pylint
+        run: pylint calculator.py || true
+        continue-on-error: true
